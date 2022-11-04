@@ -26,9 +26,7 @@ public class SecurityConfig {
         userService.setAccessibleScopes(myScopes);
 
         http.csrf().disable()
-                .authorizeHttpRequests(a -> {
-                    a.anyRequest().authenticated();
-                })
+                .authorizeHttpRequests(a -> a.anyRequest().authenticated())
                 .oauth2Login(customizer -> {
                     // see https://docs.spring.io/spring-security/reference/servlet/oauth2/login/advanced.html
                     customizer.userInfoEndpoint().oidcUserService(userService);
