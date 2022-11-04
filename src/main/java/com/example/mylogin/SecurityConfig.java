@@ -20,14 +20,15 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         Set<String> myScopes = new HashSet<>();
         myScopes.add("email");
-        myScopes.add("introspect");
         myScopes.add("oidc");
 
         OidcUserService userService = new OidcUserService();
         userService.setAccessibleScopes(myScopes);
 
         http.csrf().disable()
-                .authorizeHttpRequests(a -> a.anyRequest().authenticated())
+                .authorizeHttpRequests(a -> {
+                    a.anyRequest().authenticated();
+                })
                 .oauth2Login(customizer -> {
                     // see https://docs.spring.io/spring-security/reference/servlet/oauth2/login/advanced.html
                     customizer.userInfoEndpoint().oidcUserService(userService);
