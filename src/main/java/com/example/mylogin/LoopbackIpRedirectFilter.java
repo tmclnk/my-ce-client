@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Force spring security to allow localhost or 127.0.0.1 as a redirect.
+ */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class LoopbackIpRedirectFilter extends OncePerRequestFilter {
