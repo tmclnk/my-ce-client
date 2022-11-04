@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Just dump auth data as JSON.
+ */
 @RestController
 public class Controller {
     @GetMapping("/oidc")
