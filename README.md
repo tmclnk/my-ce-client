@@ -3,31 +3,37 @@
 This is an app that redirects out to Cloudentity for login, 
 then shoves the resulting info into the HTTP Session.
 
-Pretty sure the actual access token gets lost after successful login,
-but you can find it in the logs by enabling
+## Configuring the ACP
 
-```properties
-logging.level.org.springframework.web.client=DEBUG
+You'll need to register a **Server-side Web** Client in ACP. Set the **OAuth > REDIRECT_URI** to
+
+```
+http://localhost:8080/login/oauth2/code/cloudentity
 ```
 
-Then look for `Writing [{access_token=` in the output.
+## Configuring The App
+
+Create a `src/main/resources/application.properties` file. You'll need to replace `{{tid}}` with your Tenant Id, e.g.
+demo or my-workspace.
+
+```
+spring.security.oauth2.client.registration.cloudentity.client-id=
+spring.security.oauth2.client.registration.cloudentity.client-secret=
+spring.security.oauth2.client.provider.cloudentity.issuer-uri=https://{{tid}}.us.authz.cloudentity.io/{{tid}}/demo
+server.forward-headers-strategy=native
+server.servlet.session.persistent=false
+```
 
 ## Usage
-
-Fire up the local app
 
 ```shell
 mvn spring-boot:run
 ```
 
-Then visit [localhost:8080], which will redirect you to the CloudEntity login screen.
-
-Login with `alice/alice` or `bob/bob`. You'll get redirected back [localhost:8080], where
-your user principal object will be displayed.
+Then visit [localhost:8080], which will redirect you to the CloudEntity login screen. After authenticating, you'll
+be redirected back to http://localhost:8080/login/oauth2/code/cloudentity.
 
 Log out at [http://localhost:8080/logout](http://localhost:8080/logout).
-
-
 
 ## Links
 
