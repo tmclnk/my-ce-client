@@ -35,6 +35,15 @@ be redirected back to http://localhost:8080/login/oauth2/code/cloudentity.
 
 Log out at [http://localhost:8080/logout](http://localhost:8080/logout).
 
+## Reverse Proxies
+
+If you're running behind a reverse proxy, you'll need to respect `X-Forwarded-*` headers in order to
+correctly create a redirect url.
+
+```properties
+server.forward-headers-strategy=native
+```
+
 ## Links
 
 * [OAuth Grant Explainer](https://alexbilbie.com/guide-to-oauth-2-grants/)
