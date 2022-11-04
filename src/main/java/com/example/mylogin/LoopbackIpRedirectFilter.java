@@ -21,13 +21,13 @@ public class LoopbackIpRedirectFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		if (request.getServerName().equals("localhost") && request.getHeader("host") != null) {
-			UriComponents uri = UriComponentsBuilder.fromHttpRequest(new ServletServerHttpRequest(request))
-					.host("127.0.0.1").build();
-			response.sendRedirect(uri.toUriString());
-			return;
-		}
-		filterChain.doFilter(request, response);
+		 if (request.getServerName().equals("localhost") && request.getHeader("host") != null) {
+		 	UriComponents uri = UriComponentsBuilder.fromHttpRequest(new ServletServerHttpRequest(request))
+		 			.host("127.0.0.1").build();
+		 	response.sendRedirect(uri.toUriString());
+		 	return;
+		 }
+		 filterChain.doFilter(request, response);
 	}
 
 }
